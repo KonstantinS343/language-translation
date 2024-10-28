@@ -12,3 +12,7 @@ transformers
 scikit-learn==1.5.2
 scikit-learn-extra==0.3.0
 yake==0.4.8
+tk
+pillow
+Jinja2
+playwright
