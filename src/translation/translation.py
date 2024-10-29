@@ -8,12 +8,11 @@ class Translation:
     
     @classmethod
     async def translate(cls, text: str) -> str:
-        result = """
-                Anne Frank war ein jüdisches Mädchen, das während des Zweiten Weltkriegs in Amsterdam lebte. Als die Nazis die Niederlande besetzten, versteckte sich Anne zusammen mit ihrer Familie, damit die Nazis sie nicht finden.
-
-                Während ihres Verstecks schrieb Anne ihr Tagebuch, in dem sie ihre Gedanken und Gefühle aufschrieb. Ihr Tagebuch wurde später unter dem Titel 'Das Tagebuch der Anne Frank' veröffentlicht und ist zu einem der bekanntesten Bücher über den Zweiten Weltkrieg geworden.
+        text = """
+                Anne Frank war ein jüdisches Mädchen, das während des Zweiten Weltkriegs in Amsterdam lebte. Als die Nazis die Niederlande besetzten, versteckte sich Anne zusammen mit ihrer Familie, damit die Nazis sie nicht finden. Während ihres Verstecks schrieb Anne ihr Tagebuch, in dem sie ihre Gedanken und Gefühle aufschrieb. Ihr Tagebuch wurde später unter dem Titel 'Das Tagebuch der Anne Frank' veröffentlicht und ist zu einem der bekanntesten Bücher über den Zweiten Weltkrieg geworden.
                """
-        return await cls.post_process(result)
+        text=re.sub(r'[\n\r\t]', ' ', text).strip()
+        return await cls.post_process(text)
 
                
     @classmethod
@@ -36,6 +35,6 @@ class Translation:
             json.dump([item.dict() for item in output.nltk], file, indent=4, ensure_ascii=False)
             
         
-        return TranslationResponse(information=output, text=re.sub(r'[\n\r\t]', ' ', text).strip())
+        return TranslationResponse(information=output, text=text)
         
         
