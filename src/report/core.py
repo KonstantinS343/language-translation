@@ -13,7 +13,18 @@ class Report:
         with open('input.json', 'r') as f:
            data = json.load(f)
            
-        html_content = templates.TemplateResponse("report.html", {"request": request, "data": data}).body
+        with open('output.json', 'r') as f:
+           new_data = json.load(f) 
+           
+        with open('translation.json', 'r') as f:
+           translation = json.load(f) 
+           
+        translation = ''.join(translation.values())
+           
+        html_content = templates.TemplateResponse("report.html", {"request": request, 
+                                                                  "data": data, 
+                                                                  "new_data": new_data,
+                                                                  "translation": translation}).body
            
         async with async_playwright() as p:
             browser = await p.chromium.launch()

@@ -15,4 +15,8 @@ class NltkResponse(BaseModel):
     count: int
     
 class SyntacticTreeRequest(BaseModel):
-    order: int
+    order: str
+    
+class TranslationResponse(BaseModel):
+    text: str
+    information: NltkResponse
